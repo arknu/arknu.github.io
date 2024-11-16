@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        header {
+            background-color: rgb(0, 155, 225);
+            padding: 10px;
+            margin: 1em auto;
+            max-width: 800px;
+            text-align: center;
+            font-size: 15px;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group:has(#reasonForReturn) {
+            grid-column: 1/-1;
+        }
+
+        .form-group.partno-quantity{
+            display: flex;
+            gap: 1em;
+        }
+
+        .form-group.partno-quantity .quantity{
+            flex: 0 0 6em;
+        }
+
+        .form-group.partno-quantity .partno{
+            flex: 1 1 50%;
+        }
+
+        .form-group.action {
+            display: flex;
+            gap: 2em;
+            align-self: center;
+            justify-self: start;
+        }
+
+        form {
+            margin: 0 auto;
+            max-width: 800px;
+            display: grid;
+            gap: 1em;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 0;
+        }
+
+        input:not([type=radio]),
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: rgb(0, 155, 225);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00aeff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Warranty Claim Form</h2>
+    </header>
+    <form action="/submit-your-form-endpoint" method="post">
+        <!--form action = hvor de indtastede data bliver sendt hen f.eks. mail eller caseoprettelse
+        method = hvordan man sender det til serveren-->
+        <div class="form-group">
+            <label for="department">Distributor name</label>
+            <select name="SSC" id="SSC">
+                <option value="JENSEN Australia">JENSEN Australia</option>
+                <option value="JENSEN GMBH">JENSEN GMBH</option>
+                <option value="JENSEN USA">JENSEN USA</option>
+                <option value="JENSEN Benelux">JENSEN Benelux</option>
+                <option value="JENSEN Nordic">JENSEN Nordic</option>
+                <option value="JDC EE&CIS, SIA">JDC EE&CIS, SIA</option>
+                <option value="Tolon">Tolon</option>
+                <option value="Vestek">Vestek</option required>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="wcfNo">WCF No. (RMA no.)</label>
+            <input type="text" id="wcfNo" name="wcfNo" required>
+        </div>
+        <div class="form-group">
+            <label for="returnedBy">Returned by</label>
+            <input type="text" id="returnedBy" name="returnedBy" required>
+        </div>
+        <div class="form-group">
+            <label for="laundry">Laundry</label>
+            <input type="text" id="laundry" name="laundry" required>
+        </div>
+        <div class="form-group partno-quantity">
+            <div class="field quantity">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" required min="1">
+            </div>
+            <div class="field partno">
+                <label for="partNo">Part No. (only one)</label>
+                <input type="text" id="partNo" name="partNo" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="partName">Part Description</label>
+            <input type="text" id="partName" name="partName" required>
+        </div>
+        <div class="form-group">
+            <label for="salesOrder">Original Sales Order or Invoice</label>
+            <input type="text" id="salesOrder" name="salesOrder" required>
+        </div>
+        <div class="form-group">
+            <label for="machineNo">Machine No.</label>
+            <input type="text" id="machineNo" name="machineNo" required>
+        </div>
+        <div class="form-group">
+            <label for="installDate">Part Installed</label>
+            <input type="date" id="installDate" name="installDate" required>
+        </div>
+        <div class="form-group">
+            <label for="failDate">Part Failed</label>
+            <input type="date" id="failDate" name="failDate" required>
+        </div>
+        <div class="form-group">
+            <label for="reasonForReturn">Reason for Return <br>
+                Please give as detailed reason for return as possible. <br>
+                Reasons as "Not working", "Default", "Broken" or "Warranty" will be rejected.</label>
+            <textarea id="reasonForReturn" name="reasonForReturn" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="Tracking">Tracking no.</label>
+            <input type="text" id="trackingNo" name="trackingNo" required>
+        </div>
+        <div class="form-group">
+            <label for="attach">Attach pictures of part and/or shipment</label>
+            <input type="file" id="attach" name="attach" multiple>
+        </div>
+        <div class="form-group action">
+            <label><input type="radio" id="replace" name="resolution" value="replace" required>
+                Replaced</label>
+            <label for="credit"><input type="radio" id="credit" name="resolution" value="credit" required>
+                Credited</label>
+        </div>
+        <div class="form-group">
+            <button type="submit">Submit Form</button>
+        </div>
+    </form>
+</body>
+
+</html>
